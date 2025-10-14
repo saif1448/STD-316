@@ -1,8 +1,3 @@
-def test_function(a : int, b: float) -> str:
-    return f'Value of A: {a} and Value of B: {b}'
-
-output = test_function('abcd', 'def') # it will warn you about wrong type, but not give error
-print(output)
 
 
 def calculate_grade(mark : int) -> str:
@@ -11,9 +6,9 @@ def calculate_grade(mark : int) -> str:
     This function calculates the grade
 
     >>> calculate_grade(100)
-    A
+    'A'
     >>> calculate_grade(60)
-    B
+    'B'
     >>> calculate_grade(700)
     Traceback (most recent call last):
     ...
@@ -39,8 +34,9 @@ def calculate_grade(mark : int) -> str:
         grade = 'F'
 
     #post condition
-    assert grade != '' or grade is None, 'Grade is empty'
+    assert grade, 'Grade is empty'  # This checks for non-empty and non-None
+    return grade
 
 
-grade = calculate_grade(100)
-print(grade)
+grade_cal = calculate_grade(100)
+print(grade_cal)
