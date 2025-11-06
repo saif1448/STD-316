@@ -145,6 +145,9 @@ public class Lab2 {
         if(accidentPercentage > 1){
             accidentPercentage = 1;
         }
+        riskFactorUnit += accidentPercentage;
+
+
 
         double vehicleTypeMult;
         if(vehicleType.equals("Sports")){

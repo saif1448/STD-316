@@ -1,4 +1,4 @@
-package lab5;
+package LabSolutions.Lab5;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;

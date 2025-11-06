@@ -1,3 +1,5 @@
+
+import doctest
 from typing import List, Dict
 
 APPLE = "apple"
@@ -27,9 +29,31 @@ def list_to_dict(input_list: List[int]) -> Dict[str, int]:
     Traceback (most recent call last):
     ...
     AssertionError: the element must be a non-negative int
+    >>> list_to_dict([])
+    Traceback (most recent call last):
+    ...
+    AssertionError: there must be 4 elements in the list
+    >>> list_to_dict([10, 10, 10, 10])
+    {'apple': 10, 'banana': 10, 'grape': 10, 'orange': 10}
+    >>> list_to_dict([5, 10, 15])
+    Traceback (most recent call last):
+    ...
+    AssertionError: there must be 4 elements in the list
+    >>> list_to_dict([0.5, 5, 10, 15])
+    Traceback (most recent call last):
+    ...
+    AssertionError: the element must be a non-negative int
+    >>> list_to_dict([1, 2, 3, 4])
+    {'apple': 1, 'banana': 2, 'grape': 3, 'orange': 4}
+    >>> list_to_dict([0, 0, 0, 0])
+    {'apple': 0, 'banana': 0, 'grape': 0, 'orange': 0}
+    >>> list_to_dict([100, 200, 300, 400])
+    {'apple': 100, 'banana': 200, 'grape': 300, 'orange': 400}
     """
     
     assert type(input_list) == list, "the input must be a list"
+    
+    assert len(input_list) == 4, "there must be 4 elements in the list"
     
     assert type(input_list[0]) == int and input_list[0] >= 0, "the element must be a non-negative int"
     assert type(input_list[1]) == int and input_list[1] >= 0, "the element must be a non-negative int"
@@ -37,10 +61,12 @@ def list_to_dict(input_list: List[int]) -> Dict[str, int]:
     assert type(input_list[3]) == int and input_list[3] >= 0, "the element must be a non-negative int"
     
     result = {}
-    
-    result(APPLE)  = input_list(0)
-    result[BANANA] = input_list[1
-    result[APPLE]  = input_list[2]
-    result[orange] = input_list[3]
-    
 
+    result[APPLE]  = input_list[0]
+    result[BANANA] = input_list[1]
+    result[GRAPE]  = input_list[2]
+    result[ORANGE] = input_list[3]
+
+    return result
+
+doctest.testmod()

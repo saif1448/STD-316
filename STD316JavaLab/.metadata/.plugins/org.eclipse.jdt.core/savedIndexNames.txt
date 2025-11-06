@@ -1,20 +1,4 @@
 INDEX VERSION 1.134+D:\Saif\Teaching\StudentCourseCodeExamples\STD-316\STD316JavaLab\.metadata\.plugins\org.eclipse.jdt.core
 3387449344.index
-3241696860.index
-1753680078.index
-1647436304.index
-1218243580.index
-830531754.index
-1821734459.index
-735403506.index
-2837351389.index
-2095153718.index
-1170968111.index
-1799012901.index
-1966132057.index
-849507344.index
-9885622.index
-3187279514.index
-910761664.index
-3730342454.index
+546030901.index
 1865797976.index

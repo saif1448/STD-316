@@ -20,31 +20,62 @@ public class Lab3 {
      * @return formatted string with sum and product statistics, or "Invalid" for invalid input
      */
     public static String getSeqStat(int firstTerm, int difference, int size) {
-        String output = "{";
-        for(int i = 1; i<= size; i++){
-            int sum = 0;
-            int mult = 1;
-            String calculatedString = "[";
-            String arrayString = "<";
-            String mathString = "";
-            int count = 1;
-            for(int j = firstTerm; count<=i; j+=difference){
-                arrayString+=j+" ";
-                sum += j;
-                mult *= j;
-                count ++;
-            }
-            arrayString = arrayString.strip();
-            if(count > 2){
-                arrayString = arrayString.replace(" ", ", ");
-            }
-            arrayString += ">: ";
-            calculatedString = calculatedString + arrayString+ sum + ", " + mult + "] ";
-            output += calculatedString;
-        }
-        output = output.strip().replace("] ", "]; ");
+//        String output = "{";
+//        for(int i = 1; i<= size; i++){
+//            int sum = 0;
+//            int mult = 1;
+//            String calculatedString = "[";
+//            String arrayString = "<";
+//            String mathString = "";
+//            int count = 1;
+//            for(int j = firstTerm; count<=i; j+=difference){
+//                arrayString+=j+" ";
+//                sum += j;
+//                mult *= j;
+//                count ++;
+//            }
+//            arrayString = arrayString.strip();
+//            if(count > 2){
+//                arrayString = arrayString.replace(" ", ", ");
+//            }
+//            arrayString += ">: ";
+//            calculatedString = calculatedString + arrayString+ sum + ", " + mult + "] ";
+//            output += calculatedString;
+//        }
+//        output = output.strip().replace("] ", "]; ");
+//
+//        return output+"}";
 
-        return output+"}";
+        int sum = 0;
+        int prod = 1;
+
+        String termString = "";
+        String finalOutput = "{";
+
+        // t1 + t2 + t3 + t4 ... + tn
+        // t1 * t2 * t3 * .... * tn
+
+        for(int i = 1; i <= size; i++){
+            int term = firstTerm + (i-1)*difference;
+            sum += term;
+            prod *= term;
+
+            termString += term + ", ";
+
+
+            String output = "[<";
+            output += termString;
+            output += ">: ";
+            output += sum + ", " + prod + "]";
+            output = output.replace(", >", ">");
+            finalOutput += output +"; ";
+        }
+
+        finalOutput += "}";
+
+        finalOutput = finalOutput.replace("; }", "}");
+
+        return finalOutput;
     }
 
     /**
