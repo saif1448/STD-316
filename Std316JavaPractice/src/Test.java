@@ -1,42 +1,44 @@
 public class Test {
     public static void main(String[] args) {
 
-        int t1 = 4;
-        int d = 6;
-        int n = 5;
+//        int i = 12345;
+//        int lastDigit = 0;
+//
+//        // 12345 - 0
+//        // 1234 - 1
+//        // 123 - 2
+//        // 12 - 3
+//        // 1 - 4
+//        // 0 - 5
+//
+//        int original = i;
+//        int reversed = 0;
+//
+//        int digitCount = 0;
+//
+//        while (i > 0){
+//            lastDigit = i % 10;
+//            i  = i / 10;
+//            digitCount ++;
+//
+//            reversed = reversed* 10 + lastDigit;
+//
+//        }
+//
+//
+//        System.out.println("Reversed " + reversed);
+//
+//
+//        if(original == reversed){
+//            System.out.println("True");
+//        }
+//
+//        System.out.println("DIgit count " + digitCount);
 
 
-        int sum = 0;
-        int prod = 1;
+        int i = 10;
 
-        String termString = "";
-        String finalOutput = "{";
-
-        // t1 + t2 + t3 + t4 ... + tn
-        // t1 * t2 * t3 * .... * tn
-
-        for(int i = 1; i <= n; i++){
-            int term = t1 + (i-1)*d;
-            sum += term;
-            prod *= term;
-
-            termString += term + ", ";
-
-
-            String output = "[<";
-            output += termString;
-            output += ">: ";
-            output += sum + ", " + prod + "]";
-            output = output.replace(", >", ">");
-            finalOutput += output +"; ";
-//            System.out.println(output);
-        }
-
-        finalOutput += "}";
-
-        finalOutput = finalOutput.replace("; }", "}");
-
-        System.out.println(finalOutput);
+        String output = i + "";
 
     }
 }

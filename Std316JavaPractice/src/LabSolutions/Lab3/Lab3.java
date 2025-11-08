@@ -1,5 +1,7 @@
 package LabSolutions.Lab3;
 
+
+
 /**
  * Lab3: Loop Programming
  * File for code implementations using ONLY loops
@@ -146,37 +148,53 @@ public class Lab3 {
             
             int original = number;
             int reversed = 0;
-            int temp = number;
+//            int temp = number;
             
-            while (temp > 0) {
-                reversed = reversed * 10 + temp % 10;
-                temp /= 10;
+            while (number > 0) {
+                int lastDigit = number % 10;
+                number /= 10;
+                reversed = reversed * 10 + lastDigit;
+
             }
-            
-            return (original == reversed) ? "true" : "false";
+//            return (original == reversed) ? "true" : "false";
+
+            if(original == reversed){
+                return "true";
+            }else{
+                return "false";
+            }
             
         } else if (property.equals("armstrong")) {
             
             int original = number;
             int numDigits = 0;
             int temp = number;
-            
-            
+
+            // 12345 - 0
+            // 1234 - 1
+            // 123 - 2
+            // 12 - 3
+            // 1 - 4
+            // 0 - 5
             while (temp > 0) {
                 numDigits++;
                 temp /= 10;
             }
-            
+            //123 ---> numDigits == 3
+            // 3 ---> 3^3, sum += 3^3
+            // 2 ---> 2^3 , sum += 2^3
+            // 1 ---> 1^3, sum+= 1^3
             int sum = 0;
             temp = number;
             while (temp > 0) {
+                // temp -- 1234, numDigits = 4
+                // digit -- 4
                 int digit = temp % 10;
-                int power = 1;
-                for (int i = 0; i < numDigits; i++) {
-                    power *= digit;
-                }
+
+                int power = (int)Math.pow(digit,numDigits); // 4 ^ 4
                 sum += power;
                 temp /= 10;
+                // 1234 ---> 123
             }
             
             return (original == sum) ? "true" : "false";
@@ -184,6 +202,8 @@ public class Lab3 {
         } else if (property.equals("divisors")) {
             
             if (number == 0) return "0";
+
+            // 8 , 1-8 ---> 1, 2, 4, 8 ---> 4
             
             int count = 0;
             for (int i = 1; i <= number; i++) {
@@ -191,11 +211,12 @@ public class Lab3 {
                     count++;
                 }
             }
-            return String.valueOf(count);
-            
+//            return String.valueOf(count);
+            return count+"";
         } else if (property.equals("digitSum")) {
             
             int temp = number;
+
             while (temp >= 10) {
                 int sum = 0;
                 while (temp > 0) {
