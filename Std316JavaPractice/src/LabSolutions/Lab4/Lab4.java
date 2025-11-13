@@ -12,7 +12,14 @@ public class Lab4 {
      
         int maxLen = 1, currLen = 1;
 
+        // 0   1   2   3  4   5   6   7
+        // 15, 10, 9 , 8, 5 , 12, 7 , 6
+        // 10
+        // i = 1, i-1 = 0
         for(int i = 1; i < arr.length; i++){
+
+            // arr[1] < arr[0]
+            // arr[2] < arr[1]
             if(arr[i] < arr[i-1]){
                 currLen++;
             } else{
@@ -37,6 +44,13 @@ public class Lab4 {
 
         int[] freqArr = new int[50];
 
+         // 0 , 1 , 2 , 3 ...15.., 49,50
+        //  0 , 0,  0,  0, ...15.., 0,  0
+        //              1,    0     0
+        //              1,    1     0
+        //              1,    2     0
+        //              1,    2,    1
+
         for (int num : arr) {
             if (num >= 1 && num < 50 && num % 2 != 0) {
                 freqArr[num]++;
@@ -49,8 +63,16 @@ public class Lab4 {
                 res.append(i).append(": ").append(freqArr[i]).append("\n");
             }
         }
-        
+        // 3: 1
+        // 15: 2
+        // 49: 1
+        //     ---> we are deleting this extra new line
+
+        // ABCD56  --> s
+        // s.length == 6
+        // s.deleteCharAt(s.length() - 1)
         if (res.length() > 0) res.deleteCharAt(res.length() - 1);
+
         return res.toString();
     }
     

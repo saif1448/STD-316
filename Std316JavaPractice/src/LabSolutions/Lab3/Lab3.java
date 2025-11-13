@@ -214,6 +214,12 @@ public class Lab3 {
 //            return String.valueOf(count);
             return count+"";
         } else if (property.equals("digitSum")) {
+
+            // temp = 48
+            //  sum = 4 + 8 = 12, temp = sum , temp = 12
+            // temp = 12
+            // sum =  1 + 2 = 3, temp = sum , temp = 3
+            // temp = 3
             
             int temp = number;
 
