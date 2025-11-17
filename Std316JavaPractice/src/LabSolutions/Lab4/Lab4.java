@@ -57,10 +57,19 @@ public class Lab4 {
             }
         }
 
-        StringBuilder res = new StringBuilder();
+//        StringBuilder res = new StringBuilder();
+//        for (int i = 1; i < 50; i++) {
+//            if (freqArr[i] > 0) {
+//                res.append(i).append(": ").append(freqArr[i]).append("\n");
+//            }
+//        }
+        String result = "";
         for (int i = 1; i < 50; i++) {
             if (freqArr[i] > 0) {
-                res.append(i).append(": ").append(freqArr[i]).append("\n");
+                if (!result.isEmpty()) {
+                    result += "\n";
+                }
+                result += i + ": " + freqArr[i];
             }
         }
         // 3: 1
@@ -71,9 +80,10 @@ public class Lab4 {
         // ABCD56  --> s
         // s.length == 6
         // s.deleteCharAt(s.length() - 1)
-        if (res.length() > 0) res.deleteCharAt(res.length() - 1);
+//        if (result.length() > 0) result.deleteCharAt(result.length() - 1);
 
-        return res.toString();
+//        return res.toString();
+        return result;
     }
     
     /**
