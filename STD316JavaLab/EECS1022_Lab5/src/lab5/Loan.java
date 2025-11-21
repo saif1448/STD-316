@@ -2,6 +2,8 @@ package lab5;
 
 import java.util.Date;
 
+//import java.util.Date;
+
 /**
  * The Loan class represents a loan with an annual interest rate, number of years,
  * loan amount, and loan date. It provides methods to calculate monthly and total payments.
@@ -11,7 +13,6 @@ import java.util.Date;
  */
 public class Loan {
     // Instance variables
-
     private double annualInterestRate;
     private int numberOfYears;
     private double loanAmount;
@@ -22,9 +23,19 @@ public class Loan {
      * Default constructor that creates a Loan object with default values:
      * annualInterestRate = 2.5%, numberOfYears = 1, loanAmount = $1000
      */
-    public Loan(){
-        this(2.5, 1, 1000);
+    public Loan() {
+    	annualInterestRate = 0.25;
+    	numberOfYears = 1;
+    	loanAmount = 1000.00;
     }
+    
+//    public Loan(double annualInterestRate, int numberOfYears, double loanAmount) {
+//        this.annualInterestRate = annualInterestRate; 
+//        this.numberOfYears = numberOfYears; 
+//        this.loanAmount = loanAmount; 
+//    }
+    
+ 
 	
     
     /**
@@ -34,13 +45,15 @@ public class Loan {
      * @param numberOfYears the number of years for the loan
      * @param loanAmount the loan amount
      */
-    public Loan(double annualInterestRate, int numberOfYears, double loanAmount) {
-        this.annualInterestRate = annualInterestRate;
-        this.numberOfYears = numberOfYears;
-        this.loanAmount = loanAmount;
-        this.loanDate = new Date();
-    }
-	
+    
+
+	public Loan(double annualInterestRate, int numberOfYears, double loanAmount) {
+		this.annualInterestRate = annualInterestRate;
+	    this.numberOfYears = numberOfYears;
+	    this.loanAmount = loanAmount;
+	}
+
+    
 	
     
     /**
@@ -48,22 +61,31 @@ public class Loan {
      * 
      * @return the annual interest rate
      */
+
+//	public double getAnnualInterestRate() {
+//		return annualInterestRate;
+//	}
+//	
+	
     public double getAnnualInterestRate() {
-        return annualInterestRate;
-    }
-
-
-
+		return annualInterestRate;
+	}
+    
     /**
      * Returns the number of years of this loan.
      * 
      * @return the number of years
      */
+//
+//	public double getNumberOfYears() {
+//		return numberOfYears;
+//	}
+//	
+    
+	public int getNumberOfYears() {
+		return numberOfYears;
+	}
 
-    public int getNumberOfYears() {
-        return numberOfYears;
-    }
-	
 	
     
     /**
@@ -71,10 +93,10 @@ public class Loan {
      * 
      * @return the loan amount
      */
-
-    public double getLoanAmount() {
-        return loanAmount;
-    }
+	
+	public double getLoanAmount() {
+		return loanAmount;
+	}
 	
     
     /**
@@ -83,9 +105,9 @@ public class Loan {
      * @return the loan date
      */
 
-    public Date getLoanDate() {
-        return loanDate;
-    }
+	public Date getLoanDate() {
+		return loanDate;
+	}
 	
     /**
      * Sets a new annual interest rate for this loan.
@@ -93,9 +115,10 @@ public class Loan {
      * @param annualInterestRate the new annual interest rate
      */
 
-    public void setAnnualInterestRate(double annualInterestRate) {
-        this.annualInterestRate = annualInterestRate;
-    }
+
+	public void setAnnualInterestRate(double annualInterestRate) {
+		this.annualInterestRate = annualInterestRate;
+	}
 
 	
     
@@ -104,22 +127,24 @@ public class Loan {
      * 
      * @param numberOfYears the new number of years
      */
-    public void setNumberOfYears(int numberOfYears) {
-        this.numberOfYears = numberOfYears;
-    }
 
 
+	public void setNumberOfYears(int numberOfYears) {
+		this.numberOfYears = numberOfYears;
+	}
+	
+    
     /**
      * Sets a new amount for this loan.
      * 
      * @param loanAmount the new loan amount
      */
 
-    public void setLoanAmount(double loanAmount) {
-        this.loanAmount = loanAmount;
-    }
-	
-    
+	public void setLoanAmount(double loanAmount) {
+		this.loanAmount = loanAmount;
+	}
+
+
     /**
      * Calculates and returns the monthly payment for this loan.
      * Formula: monthlyPayment = (loanAmount * monthlyInterestRate) / 
@@ -128,18 +153,14 @@ public class Loan {
      * 
      * @return the monthly payment rounded to 2 decimal places
      */
-
-
-    public double getMonthlyPayment() {
-        int numberOfMonths = numberOfYears * 12;
-        double monthlyInterestRate = annualInterestRate / 1200;
-        if (monthlyInterestRate == 0) {
-            return Math.round((loanAmount / numberOfMonths) * 100.0) / 100.0;
-        }
-        double monthlyPayment = (loanAmount * monthlyInterestRate) /
-                (1 - Math.pow(1 + monthlyInterestRate, -numberOfMonths));
-        return Math.round(monthlyPayment * 100.0) / 100.0;
-    }
+	
+	
+	public double getMonthlyPayment() { 
+		double monthlyInterestRate = annualInterestRate/12;
+		int numberOfMonths = numberOfYears*12;
+	    double monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - (1 /Math.pow(1 + monthlyInterestRate, numberOfMonths)));
+		return monthlyPayment;
+	}
 	
 
     
@@ -150,11 +171,11 @@ public class Loan {
      * @return the total payment rounded to 2 decimal places
      */
 
-    public double getTotalPayment() {
-        double totalPayment = getMonthlyPayment() * numberOfYears * 12;
-        return Math.round(totalPayment * 100.0) / 100.0;
-    }
-
+	
+	public double getTotalPayment() {
+		return 0;
+	}
+	
 	
     
     /**
@@ -165,12 +186,12 @@ public class Loan {
      */
 
 
-    public double getTotalInterest() {
-        double totalInterest = getTotalPayment() - loanAmount;
-        return Math.round(totalInterest * 100.0) / 100.0;
-    }
+	public double getTotalInterest() {
+		return 0;
+	}
 	
-
+	
+	
     
     /**
      * Returns a string representation of this loan.
@@ -184,31 +205,25 @@ public class Loan {
                              loanAmount, annualInterestRate, numberOfYears, getMonthlyPayment());
     }
     
-    /**
+
+
+
+
+	/**
      * Calculates the remaining balance on the loan after a specified number of months.
      * Uses the amortization formula to determine how much principal is left to pay.
      * 
      * @param monthsPaid the number of months already paid
      * @return the remaining balance rounded to 2 decimal places, or 0 if loan is paid off
      */
+
+
     public double getRemainingBalance(int monthsPaid) {
-        int numberOfMonths = numberOfYears * 12;
-        double monthlyInterestRate = annualInterestRate / 1200;
-        if (monthsPaid >= numberOfMonths) {
-            return 0.0;
-        }
-        if (monthlyInterestRate == 0) {
-            double remaining = loanAmount - (getMonthlyPayment() * monthsPaid);
-            return Math.max(0.0, Math.round(remaining * 100.0) / 100.0);
-        }
-        double remainingBalance = loanAmount *
-                Math.pow(1 + monthlyInterestRate, monthsPaid) -
-                getMonthlyPayment() *
-                        (Math.pow(1 + monthlyInterestRate, monthsPaid) - 1) / monthlyInterestRate;
-        return Math.max(0.0, Math.round(remainingBalance * 100.0) / 100.0);
+    	return 0;
     }
     
-
+    
+    
     
     /**
      * Determines if this loan is affordable based on the borrower's monthly income.
@@ -219,11 +234,13 @@ public class Loan {
      */
 
     public boolean isAffordable(double monthlyIncome) {
-        return getMonthlyPayment() <= monthlyIncome * 0.28;
+    	return true;
     }
     
+    
+    
 
-    /**
+	/**
      * Calculates and returns the date when this loan will be paid off.
      * Adds the number of months (years * 12) to the loan creation date.
      * 
