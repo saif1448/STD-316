@@ -2,7 +2,21 @@ from typing import List
 import doctest
 
 def initialize_board(n: int) -> List[List[str]]:
-    pass
+    """
+    Initialize an n x n game board as a nested list, where each cell is initially filled with a space.
+    
+    Args:
+        n (int): The size of the board (n x n)
+    
+    Returns:
+        List[List[str]]: An n x n board filled with spaces
+    
+    >>> initialize_board(3)
+    [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+    >>> initialize_board(4)
+    [[' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' '], [' ', ' ', ' ', ' ']]
+    """
+    return [[' ' for _ in range(n)] for _ in range(n)]
 
 # This function is provided, and you can leave it as is.
 def print_board(board: List[List[str]]) -> None:
@@ -34,13 +48,99 @@ def print_board(board: List[List[str]]) -> None:
         print('\n' + '-' * (4 * len(row) + 1))
 
 def drop_piece(board: List[List[str]], row: int, col: int, player: str) -> bool:
-    pass
+    """
+    Allow a player to drop their piece ('X' or 'O') into a specified cell on the board.
+    A player cannot overwrite a cell that is already occupied.
+    
+    Args:
+        board (List[List[str]]): The game board
+        row (int): Row index where to drop the piece
+        col (int): Column index where to drop the piece
+        player (str): The player's symbol ('X' or 'O')
+    
+    Returns:
+        bool: True if the piece is successfully dropped, False if the cell is already occupied
+    
+    >>> board1 = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+    >>> drop_piece(board1, 0, 0, 'X')
+    True
+    >>> board1
+    [[' X', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+    >>> drop_piece(board1, 0, 0, 'O')
+    False
+    """
+    if board[row][col] != ' ':
+        return False
+    board[row][col] = player
+    return True
 
 def is_winner(board: List[List[str]], player: str) -> bool:
-    pass
+    """
+    Check if a player has won the game by checking rows, columns, and diagonals.
+    To win, a player must occupy an entire row, column, or diagonal.
+    
+    Args:
+        board (List[List[str]]): The game board
+        player (str): The player's symbol ('X' or 'O')
+    
+    Returns:
+        bool: True if the player has won, False otherwise
+    
+    >>> is_winner([['X', 'X', 'X'], [' ', 'O', ' '], [' ', 'O', ' ']], 'X')
+    True
+    >>> is_winner([[' ', 'X', ' '], ['O', 'X', ' '], [' ', 'X', 'O']], 'X')
+    True
+    >>> is_winner([['X', ' ', 'O'], [' ', 'X', ' '], [' ', ' ', 'X']], 'X')
+    True
+    >>> is_winner([['O', ' ', 'X'], [' ', 'O', ' '], ['X', ' ', 'O']], 'O')
+    True
+    >>> is_winner([[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']], 'X')
+    False
+    """
+    n = len(board)
+    
+    # Check rows
+    for row in board:
+        if all(cell == player for cell in row):
+            return True
+    
+    # Check columns
+    for col in range(n):
+        if all(board[row][col] == player for row in range(n)):
+            return True
+    
+    # Check diagonal from top-left to bottom-right
+    if all(board[i][i] == player for i in range(n)):
+        return True
+    
+    # Check diagonal from top-right to bottom-left
+    if all(board[i][n - 1 - i] == player for i in range(n)):
+        return True
+    
+    return False
 
 def is_board_full(board: List[List[str]]) -> bool:
-    pass
+    """
+    Check if the game board is full, indicating a tie if there's no winner.
+    
+    Args:
+        board (List[List[str]]): The game board
+    
+    Returns:
+        bool: True if the board is completely filled, False otherwise
+    
+    >>> is_board_full([[' ', 'X', ' '], [' ', ' ', ' '], [' ', ' ', 'O']])
+    False
+    >>> is_board_full([['O', 'X', 'O'], ['X', 'X', 'O'], ['X', 'O', 'X']])
+    True
+    >>> is_board_full([['X', 'X', 'X'], ['O', 'O', ' '], ['O', 'O', 'X']])
+    False
+    """
+    for row in board:
+        for cell in row:
+            if cell == ' ':
+                return False
+    return True
 
 # This function is provided, and you can leave it as is.
 def play_tic_tac_toe() -> None:
