@@ -41,7 +41,7 @@ def pearson_correlation(list_1: List[int], list_2: List[int]) -> float:
     # Calculate the numerator and denominator of the Pearson correlation formula
     numerator = 0
     for i in range(len(list_1)):
-        numerator = (list_1[i] - mean_list_1) * (list_2[i] - mean_list_2)
+        numerator += (list_1[i] - mean_list_1) * (list_2[i] - mean_list_2)
     
     denominator_sum_list_1 = 0
     for x in list_1:
@@ -99,4 +99,4 @@ if __name__ == "__main__":
     result = find_highest_correlation(reference, nested)
     print(result)
     
-    # doctest.testmod()
+# doctest.testmod()

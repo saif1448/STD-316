@@ -32,18 +32,21 @@ def absolute_value(number_str: str) -> float:
     0.0
     >>> absolute_value("|10.5|")
     10.5
-    >>> absolute_value("|-0|")
-    0.0
+    >>> absolute_value("|-7|")
+    7.0
     >>> absolute_value("| 2.3 |")  # Whitespace should be handled
     2.3
     >>> absolute_value("|2.3| ")   # Trailing whitespace
     2.3
     >>> absolute_value(" |2.3|")   # Leading whitespace
     2.3
-    >>> absolute_value("|- 2.3|") #Whitespace after - sign
+    >>> absolute_value("    |- 2.3|           ") #Whitespace after - sign
     2.3
     """
-    assert isinstance(number_str, str), "invalid argument"
+
+
+    # assert isinstance(number_str, str), "invalid argument"
+    assert type(number_str) == str, "invalid argument"
     number_str = number_str.strip()
     assert len(number_str) >= 3, "invalid argument"
     assert number_str[0] == '|' and number_str[-1] == '|', "invalid argument"

@@ -26,7 +26,7 @@ def approximate_pi(m):
     """
     result = 0  
     ### Your code here ###  
-    for n in range(m+1):
+    for n in range(0, m+1):
         result += ((-1) ** n) / (2 * n + 1)
     
     result *= 4

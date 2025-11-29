@@ -1,3 +1,5 @@
+from typing import List, Dict
+import doctest
 
 def is_odd(num: int) -> bool:
     """
@@ -59,3 +61,6 @@ def separate_numbers(nested_list: List[List[int]]) -> Dict[str, Dict[str, List[i
         result_dict[f"list_number_{i + 1}"] = list_dict
 
     return result_dict
+
+
+doctest.testmod()

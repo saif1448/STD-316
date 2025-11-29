@@ -1,3 +1,5 @@
+import doctest
+
 def is_even(n: int) -> bool:
     """
     Returns True if the input integer is even, False otherwise.
@@ -23,3 +25,5 @@ def is_even(n: int) -> bool:
     assert type(n) == int, "Input must be an integer."
     return n % 2 == 0
 
+
+doctest.testmod()
