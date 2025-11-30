@@ -1,28 +1,28 @@
 import doctest
 
-class Product
+class Product:
     """ A class representing one project """
     
-def __init__(self, name: str, price: float, quantity: int) -> None:
-    """
-    Constructor
+    def __init__(self, name: str, price: float, quantity: int) -> None:
+        """
+        Constructor
 
-    >>> laptop = Product("laptop", 2030.5, 2)
-    >>> laptop._name
-    'laptop'
-    >>> laptop._price
-    2030.5
-    >>> laptop._quantity
-    2
-    """
-        
-    assert isinstance(name, str), "the name must be a string"
-    assert isinstance(price, float) and price > 0, "the price must be a postive float"
-    assert isinstance(quantity, int) and quantity > 0, "the quantity must be a positive int"
-        
-    self._name = name
-    self._price = price
-    self._quantity = quantity
+        >>> laptop = Product("laptop", 2030.5, 2)
+        >>> laptop._name
+        'laptop'
+        >>> laptop._price
+        2030.5
+        >>> laptop._quantity
+        2
+        """
+
+        assert isinstance(name, str), "the name must be a string"
+        assert isinstance(price, float) and price > 0, "the price must be a positive float"
+        assert isinstance(quantity, int) and quantity > 0, "the quantity must be a positive int"
+
+        self._name = name
+        self._price = price
+        self._quantity = quantity
     
     def get_name(self) -> str:
         """
@@ -69,7 +69,7 @@ def __init__(self, name: str, price: float, quantity: int) -> None:
         
         assert isinstance(quantity, int) and quantity > 0, "the quantity must be a positive int"
         
-        self._quantity += 1
+        self._quantity += quantity
         
     def reduce_quantity(self, quantity=1) -> None:
         """
@@ -84,6 +84,8 @@ def __init__(self, name: str, price: float, quantity: int) -> None:
         assert isinstance(quantity, int) and quantity > 0, "the quantity must be a positive int"
         
         self._quantity -= quantity
+        if self._quantity < 0:
+            self._quantity = 0
         
 class Inventory:
     """ A class representing the inventory """
@@ -99,6 +101,7 @@ class Inventory:
         
         self._products = []
 
+
     def _find_product(self, name: str) -> Product:
         """
         
@@ -113,6 +116,7 @@ class Inventory:
         for product in self._products:
             if product.get_name() == name:
                 return product
+        return None
 
     def stock_product(self, product: Product) -> None:
         """
@@ -125,9 +129,20 @@ class Inventory:
         True
         """
         
-        assert isinstance(product, Product), "the parameter product roduct must be an instance of the Class Product"
+        assert isinstance(product, Product), "the parameter product product must be an instance of the Class Product"
         
-        self._product.append(product)
+        existing_product = self._find_product(product.get_name())
+        
+        if existing_product:
+            # If product exists, check if price matches
+            assert existing_product.get_price() == product.get_price(), "Cannot add product with same name but different price"
+            # If price matches, add quantities
+            existing_product.add_quantity(product.get_quantity())
+        else:
+            # If product doesn't exist, add it to inventory
+            self._products.append(product)
+
+
         
     def sell_product(self, product_name: str, quantity: int):
         """

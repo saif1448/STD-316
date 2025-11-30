@@ -20,7 +20,15 @@ class Book:
         '7623256234'
         """
         
-        pass
+        assert isinstance(title, str), "title must be a string"
+        assert isinstance(author, str), "author must be a string"
+        assert isinstance(publication_year, int) and 1900 <= publication_year <= 2025, "publication year must be between 1900 and current year"
+        assert isinstance(isbn, str) and isbn.isdigit() and len(isbn) in [10, 13], "isbn must be a string of 10 or 13 digits"
+        
+        self._title = title
+        self._author = author
+        self._publication_year = publication_year
+        self._isbn = isbn
 
     def get_title(self) -> str:
         """
@@ -31,7 +39,7 @@ class Book:
         'Introduction to Programming'
         """
         
-        pass
+        return self._title
     
     def get_author(self) -> str:
         """
@@ -42,7 +50,7 @@ class Book:
         'Sam'
         """
         
-        pass
+        return self._author
     
     def get_publication_year(self) -> str:
         """
@@ -53,7 +61,7 @@ class Book:
         2003
         """
         
-        pass
+        return self._publication_year
     
     def get_isbn(self) -> str:
         """
@@ -64,7 +72,7 @@ class Book:
         '7623256234'
         """
         
-        pass      
+        return self._isbn      
 
     def __str__(self) -> str:
         """
@@ -75,7 +83,7 @@ class Book:
         Title: Introduction to Programming, Author: Sam, Year: 2003, ISBN: 7623256234
         """
         
-        pass
+        return f"Title: {self._title}, Author: {self._author}, Year: {self._publication_year}, ISBN: {self._isbn}"
 
     def __eq__(self, other) -> bool:
         """
@@ -87,9 +95,9 @@ class Book:
         False
         """
         
-        pass
-
-
+        if isinstance(other, Book):
+            return self._isbn == other._isbn
+        return False
 class Library:
     """ A library that stores only one copy of each book """
     
@@ -102,8 +110,8 @@ class Library:
         []
         """
         
-        pass
-
+        self._books = []
+        
     def get_books(self) -> List[Book]:
         """
         Get all the books
@@ -111,12 +119,12 @@ class Library:
         >>> programming_book = Book("Introduction to Programming", "Sam", 2003, "7623256234")
         >>> my_library = Library()
         >>> my_library._books = [programming_book]
-        >>> len(my_library.get_books)
+        >>> len(my_library.get_books())
         1
         """
         
-        pass
-
+        return self._books
+        
     def add_book(self, book: Book) -> None:
         """
         Add a book to the library. The book is not added is the library already has the book.
@@ -128,8 +136,9 @@ class Library:
         True
         """
         
-        pass
-
+        if book not in self._books:
+            self._books.append(book)
+        
     def search_by_title(self, title: str) -> List[Book]:
         """
         Return a list of Book with the title provided
@@ -143,8 +152,12 @@ class Library:
         True
         """
         
-        pass
-
+        result = []
+        for book in self._books:
+            if book.get_title() == title:
+                result.append(book)
+        return result
+        
     def search_by_author(self, author: str) -> List[Book]:
         """
         Return a list of Book written by author
@@ -159,8 +172,12 @@ class Library:
         True
         """
         
-        pass
-
+        result = []
+        for book in self._books:
+            if book.get_author() == author:
+                result.append(book)
+        return result
+        
     def search_by_isbn(self, isbn: str) -> Book:
         """
         Return the book with the isbn. Return None if the book cannot be found
@@ -175,8 +192,11 @@ class Library:
         True
         """
         
-        pass
-
+        for book in self._books:
+            if book.get_isbn() == isbn:
+                return book
+        return None
+        
     def __str__(self) -> str:
         """
         Return a string representation that include all the book information
@@ -191,7 +211,10 @@ class Library:
         Title: Music, Author: Sam, Year: 1992, ISBN: 6123556127
         """
         
-        pass
+        result = []
+        for book in self._books:
+            result.append(str(book))
+        return '\n'.join(result)
 
 if __name__ == '__main__':
     doctest.testmod()
