@@ -41,6 +41,7 @@ def reverse_str(s: str) -> str:
     reversed_str = ''
     
     str_len = len(s)
+
     for i in range(str_len - 1, -1, -1):
         reversed_str += s[i]
         

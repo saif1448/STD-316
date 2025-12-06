@@ -1,6 +1,6 @@
 from typing import Dict
 
-def add_to_inventory(inventory: Dict[str, int], product: str, quality: int) -> int:
+def add_to_inventory(inventory: Dict[str, int], product: str, quantity: int) -> int:
     """
     Adds a specified quantity of a product to the inventory and returns the new quantity.
     
@@ -8,7 +8,7 @@ def add_to_inventory(inventory: Dict[str, int], product: str, quality: int) -> i
         inventory (Dict[str, int]): A dictionary representing the store's inventory 
                                   where keys are product names and values are quantities.
         product (str): The name of the product to add to inventory.
-        quality (int): The quantity to add (must be non-negative).
+        quantity (int): The quantity to add (must be non-negative).
         
     Returns:
         int: The new quantity of the product in the inventory after addition.
@@ -50,12 +50,14 @@ def add_to_inventory(inventory: Dict[str, int], product: str, quality: int) -> i
     ...
     AssertionError: quantity must be a non-negative integer
     """
-    
-    assert type(quality) == int and quality >= 0, "quantity must be a non-negative integer"
+
+    assert type(inventory) == Dict, "inventory must be type of Dictionary"
+    assert type(product) == str, "product type must be String"
+    assert type(quantity) == int and quantity >= 0, "quantity must be a non-negative integer"
     
     if product in inventory:
-        inventory[product] += quality
+        inventory[product] += quantity
     else:
-        inventory[product] = quality
+        inventory[product] = quantity
     
     return inventory[product]

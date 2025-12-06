@@ -29,9 +29,10 @@ def encrypt(message, shift):
     encrypted_message = ""
     for char in message:
         if char.isupper():
-            char_position = ord(char) - ord('A')
-            new_position = (char_position + shift) % 26
-            new_char = chr(new_position + ord('A'))
+            # XYZ, 4
+            char_position = ord(char) - ord('A') # it gives the position within 0 - 25 # ord(x) - ord('A') = 88 - 65 = 23
+            new_position = (char_position + shift) % 26 # 23 + 4 = 27 % 26 = 1
+            new_char = chr(new_position + ord('A')) # 1 + ord('A') = 1 + 65 = 66 ---> chr(66) ---> B ====> X, 4 ---> B
             
             encrypted_message += new_char
         else:
@@ -40,3 +41,5 @@ def encrypt(message, shift):
     return encrypted_message
     
 doctest.testmod()
+
+

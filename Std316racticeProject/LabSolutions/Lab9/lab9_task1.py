@@ -25,8 +25,16 @@ def calculate_average(numbers_str: str) -> float:
     assert len(numbers) == ALLOWED_NUMBER, "Input string must contain exactly 5 numbers."
 
     total = 0
-    for i in range(ALLOWED_NUMBER):
-        total += int(numbers[i].strip())
+    # allowed number = 5, range(allowed number) ---> 0 - 4, numbers[0] -> num, number[1] -> num
+    # for i in range(ALLOWED_NUMBER):
+    #     total += int(numbers[i].strip())
+
+    for num_str in numbers:
+        # num_str = num_str.strip()
+        # num = int(num_str)
+        # total += num
+        total += int(num_str.strip())
+
 
     return total/ALLOWED_NUMBER
 
