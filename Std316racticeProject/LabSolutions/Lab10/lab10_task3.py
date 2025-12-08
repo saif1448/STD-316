@@ -37,15 +37,12 @@ def majority_element(nums: List[int]) -> List[int]:
     
     
     assert isinstance(nums, list), "Input must be a list"
-    
-    
+
     for element in nums:
         assert isinstance(element, int), "All elements must be integers"
-    
-    
+
     if len(nums) == 0:
         return []
-    
 
     frequency = {}
     for num in nums:

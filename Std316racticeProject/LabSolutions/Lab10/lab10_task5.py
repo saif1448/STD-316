@@ -26,6 +26,14 @@ def invert_dict(student_grades: Dict[str, int]) -> Dict[int, List[str]]:
     {100: ['Frank']}
     >>> invert_dict({})
     {}
+    >>> invert_dict({"Pikachu": 99, "Snorlex": 30})
+    {99: ['Pikachu'], 30: ['Snorlex']}
+    >>> invert_dict({"Pikachu": 99, "Snorlex": 30, "Bulbasaur": 30})
+    {99: ['Pikachu'], 30: ['Snorlex', 'Bulbasaur']}
+    >>> invert_dict([30, 20])
+    Traceback (most recent call last):
+    ...
+    AssertionError: Input must be a dictionary
     """
     
     # Precondition: input must be a dictionary

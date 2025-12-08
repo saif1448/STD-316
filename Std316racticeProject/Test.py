@@ -1,7 +1,5 @@
+ls = [1,1,2,2,3,3,5,4]
 
-str1 = "_a_b"
+ls.remove(2)
 
-chars = str1.split("_")
-o = "" in chars
-
-print(o)
+print(ls)

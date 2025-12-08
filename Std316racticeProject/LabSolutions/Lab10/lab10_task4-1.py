@@ -1,4 +1,5 @@
 from typing import Dict
+import doctest
 
 def update_subject_grade(subject_grade: Dict[str, int], subject: str, new_grade: int) -> None:
     """
@@ -18,6 +19,28 @@ def update_subject_grade(subject_grade: Dict[str, int], subject: str, new_grade:
     Raises:
         AssertionError: If new_grade is not an integer
         AssertionError: If subject does not exist in subject_grade dictionary
+    
+    >>> grades1 = {"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}
+    >>> update_subject_grade(grades1, "Math", 70)
+    >>> grades1
+    {'Math': 70, 'English': 75, 'Introduction to Python': 95, 'Biology': 88}
+    
+    >>> grades2 = {"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}
+    >>> update_subject_grade(grades2, "English", 55)
+    >>> grades2
+    {'Math': 90, 'English': 55, 'Introduction to Python': 95, 'Biology': 88}
+    
+    >>> grades3 = {"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}
+    >>> update_subject_grade(grades3, "English", 60.5)
+    Traceback (most recent call last):
+        ...
+    AssertionError: grade must be integer
+    
+    >>> grades4 = {"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}
+    >>> update_subject_grade(grades4, "Spanish", 90)
+    Traceback (most recent call last):
+        ...
+    AssertionError: subject must be already exist in subject_grade
     """
     
     # Precondition: new_grade must be an integer
@@ -28,3 +51,6 @@ def update_subject_grade(subject_grade: Dict[str, int], subject: str, new_grade:
     
     # Update the grade for the specified subject
     subject_grade[subject] = new_grade
+
+
+doctest.testmod()

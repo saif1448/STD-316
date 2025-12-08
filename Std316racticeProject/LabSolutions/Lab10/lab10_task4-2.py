@@ -5,10 +5,6 @@ def return_subject_grade(subject_grade: Dict[str, int], subject: str, new_grade:
     """
     Creates a copy of the original dictionary and updates the grade for the specified subject.
     
-    This function creates a copy of the original subject_grade dictionary, updates the grade
-    for the specified subject with the new grade in the copied dictionary, and returns the
-    updated dictionary without altering the original dictionary.
-    
     Args:
         subject_grade (Dict[str, int]): Dictionary with subject names as keys and grades as values
         subject (str): The subject name to update
@@ -21,10 +17,24 @@ def return_subject_grade(subject_grade: Dict[str, int], subject: str, new_grade:
         AssertionError: If new_grade is not an integer
         AssertionError: If subject does not exist in subject_grade dictionary
     
-    >>> return_subject_grade({"Math": 90, "English": 75}, "Math", 85)
-    {'Math': 85, 'English': 75}
-    >>> return_subject_grade({"Science": 80, "History": 90, "Art": 95}, "History", 88)
-    {'Science': 80, 'History': 88, 'Art': 95}
+    >>> return_subject_grade({"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}, "Math", 100)
+    {'Math': 100, 'English': 75, 'Introduction to Python': 95, 'Biology': 88}
+    
+    >>> return_subject_grade({"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88}, "English", 55)
+    {'Math': 90, 'English': 55, 'Introduction to Python': 95, 'Biology': 88}
+    
+    >>> return_subject_grade({"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88, "Introduction to Machine Learning": 97, "Database": 100}, "Introduction to Machine Learning", 56.5)
+    Traceback (most recent call last):
+    ...
+    AssertionError: grade must be integer
+    
+    >>> return_subject_grade({"Math": 90, "English": 75, "Introduction to Python": 95, "Biology": 88, "Introduction to Machine Learning": 97, "Database": 100}, "Introduction to Machine Learning", 56)
+    {'Math': 90, 'English': 75, 'Introduction to Python': 95, 'Biology': 88, 'Introduction to Machine Learning': 56, 'Database': 100}
+    
+    >>> return_subject_grade({"Math": 90}, "History", 80)
+    Traceback (most recent call last):
+    ...
+    AssertionError: subject must be already exist in subject_grade
     """
     
     assert isinstance(new_grade, int), "grade must be integer"
