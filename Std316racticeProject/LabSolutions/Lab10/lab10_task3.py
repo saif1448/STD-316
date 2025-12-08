@@ -34,6 +34,17 @@ def majority_element(nums: List[int]) -> List[int]:
     >>> majority_element([-1, -1, 0, 0, 1])
     [-1, 0]
     """
+
+    # [1,1,2,2,2,3,3,3,4,4,5,5,]
+    # max_count = 3
+    # {key, value}
+    # {}
+    # {1 : 1}
+    # {1 : 2}
+    # {1 : 2, 2 : 1 }
+    # {1 : 2, 2: 3, 3 : 3, 4 : 2, 5 : 2}
+    # [2, 3] ---> return
+
     
     
     assert isinstance(nums, list), "Input must be a list"
@@ -44,7 +55,7 @@ def majority_element(nums: List[int]) -> List[int]:
     if len(nums) == 0:
         return []
 
-    frequency = {}
+    frequency = {}  # {} ---> it creates a blank dictionary
     for num in nums:
         if num in frequency:
             frequency[num] += 1

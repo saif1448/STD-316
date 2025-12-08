@@ -1,5 +1,7 @@
-from typing import List
 import doctest
+
+from typing import List
+
 
 def contains_duplicates(nums: List[int]) -> bool:
     """
@@ -16,14 +18,18 @@ def contains_duplicates(nums: List[int]) -> bool:
 """
 
     s = set()  # initialize an empty set
-    result = False
-
+    result = None  # Note: None means the data has no type
+    # [1,5,7,5,9]
+    #  {1, 5, 7, 9 } ---> False
     for num in nums:
         if num in s:
             result = True
             break
-        s.add(num)
+        else:
+            result = False
+            s.add(num)
 
     return result
+
 
 doctest.testmod()

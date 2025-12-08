@@ -36,8 +36,11 @@ def remove_item(name_list: Tuple[str], index: int) -> Tuple[str]:
     """
 
     assert 0 <= index < len(name_list), "Index out of range"
-
-    return name_list[:index] + name_list[index + 1:]
+    # (a, b,c, d, e,f ), 3
+    # (a, b, c) + (e,f)
+    # ( : 3) + (3+1:)
+    result = name_list[:index] + name_list[index+1:]
+    return result
 
 
 if __name__ == "__main__":

@@ -48,7 +48,7 @@ print(ls1)
 
 # deletion
 # 1. remove()
-# 2. pop() --> deletes value at an index
+# 2. pop() --> deletes value at an index pop(index)
 # 3. clear()
 ls1.remove(2)
 print(ls1)

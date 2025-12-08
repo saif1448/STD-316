@@ -1,19 +1,19 @@
 from typing import Dict, List
 import doctest
 
-def invert_dict(student_grades: Dict[str, int]) -> Dict[int, List[str]]:
+def invert_dict(input_dictionary: Dict[str, int]) -> Dict[int, List[str]]:
     """
-    Inverts a dictionary of student grades by making grades the keys and student names the values.
+    Inverts a dictionary of key grades by making grades the keys and key names the values.
     
-    This function takes a dictionary where student names are keys and grades are values,
-    and returns a new dictionary where grades are keys and lists of student names are values.
-    The values are lists because multiple students can have the same grade.
+    This function takes a dictionary where key names are keys and grades are values,
+    and returns a new dictionary where grades are keys and lists of key names are values.
+    The values are lists because multiple students can have the same value.
     
     Args:
-        student_grades (Dict[str, int]): Dictionary with student names as keys and grades as values
+        input_dictionary (Dict[str, int]): Dictionary with key names as keys and grades as values
         
     Returns:
-        Dict[int, List[str]]: Dictionary with grades as keys and lists of student names as values
+        Dict[int, List[str]]: Dictionary with grades as keys and lists of key names as values
         
     Raises:
         AssertionError: If input is not a dictionary
@@ -35,21 +35,26 @@ def invert_dict(student_grades: Dict[str, int]) -> Dict[int, List[str]]:
     ...
     AssertionError: Input must be a dictionary
     """
-    
+
+
     # Precondition: input must be a dictionary
-    assert isinstance(student_grades, dict), "Input must be a dictionary"
+    assert isinstance(input_dictionary, dict), "Input must be a dictionary"
     
     # Initialize the inverted dictionary
     inverted = {}
-    
-    # Iterate through each student and grade
-    for student, grade in student_grades.items():
-        # If this grade is already a key in inverted dict, add student to the list
-        if grade in inverted:
-            inverted[grade].append(student)
+    #    key     val   key    val  key   val
+    #{"Charlie": 78, "Diana": 95, "Bob": 78}
+    # {78 : [Charlie, Bob], 95 : [Diana]}
+
+    # Iterate through each key and value
+    for key, value in input_dictionary.items():
+        # If this value is already a key in inverted dict, add key to the list
+        if value in inverted:
+            inverted[value].append(key)
         else:
-            # If this grade is not yet a key, create a new list with this student
-            inverted[grade] = [student]
+            # If this value is not yet a key, create a new list with this key
+            inverted[value] = []
+            inverted[value].append(key)
     
     return inverted
 
