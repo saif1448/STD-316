@@ -77,7 +77,7 @@ class Rectangle:
         1.2
         """
 
-        return self._length
+        return self._width
 
     def set_width(self, width: float) -> float:
         """

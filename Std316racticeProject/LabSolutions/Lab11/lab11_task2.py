@@ -61,7 +61,7 @@ def pearson_correlation(list_1: List[int], list_2: List[int]) -> float:
     
     return correlation_coefficient
 
-def find_highest_correlation(reference_list: List[int], nested_list: List[List[int]]) -> (List[int], float):
+def find_highest_correlation(reference_list: List[int], nested_list: List[List[int]]) -> Tuple[List[int], float]:
     """
     Find the sublist in the nested list with the highest Pearson correlation with the reference list.
 
