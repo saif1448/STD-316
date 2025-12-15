@@ -1,5 +1,5 @@
-package lab7;
-
+//package lab7;
+package LabSolutions.Lab7;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,8 +25,13 @@ public class Lab7 {
 	 * @return a new ArrayList containing common elements without duplicates
 	 */
 	public static ArrayList<Integer> findCommonElements(ArrayList<Integer> list1, ArrayList<Integer> list2) {
-		//Fill in the code here	
-		return null;
+		ArrayList<Integer> result = new ArrayList<>();
+		for (Integer element : list1) {
+			if (list2.contains(element) && !result.contains(element)) {
+				result.add(element);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -38,8 +43,13 @@ public class Lab7 {
 	 * @return a new ArrayList with duplicates removed
 	 */
 	public static ArrayList<String> removeDuplicates(ArrayList<String> list) {
-		//Fill in the code here	
-				return null;
+		ArrayList<String> result = new ArrayList<>();
+		for (String element : list) {
+			if (!result.contains(element)) {
+				result.add(element);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -52,8 +62,15 @@ public class Lab7 {
 	 * @return the rotated ArrayList (same reference as input)
 	 */
 	public static ArrayList<Integer> rotateLeft(ArrayList<Integer> list, int k) {
-		//Fill in the code here	
-				return null;
+		if (list.isEmpty()) {
+			return list;
+		}
+		k = k % list.size();
+		for (int i = 0; i < k; i++) {
+			Integer first = list.remove(0);
+			list.add(first);
+		}
+		return list;
 	}
 
 	/**
@@ -65,9 +82,23 @@ public class Lab7 {
 	 * @return the most frequent element, or 0 if array is empty
 	 */
 	public static int findMostFrequent(int[] arr) {
-		//Fill in the code here	
-				return 0;
-		
+		if (arr.length == 0) {
+			return 0;
+		}
+		HashMap<Integer, Integer> frequencyMap = new HashMap<>();
+		for (int num : arr) {
+			frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+		}
+		int mostFrequent = arr[0];
+		int maxFrequency = 0;
+		for (int num : arr) {
+			int frequency = frequencyMap.get(num);
+			if (frequency > maxFrequency) {
+				maxFrequency = frequency;
+				mostFrequent = num;
+			}
+		}
+		return mostFrequent;
 	}
 
 	/**
@@ -79,8 +110,15 @@ public class Lab7 {
 	 * @return a HashMap with lengths as keys and ArrayLists of strings as values
 	 */
 	public static HashMap<Integer, ArrayList<String>> groupByLength(String[] words) {
-		//Fill in the code here	
-				return null;
+		HashMap<Integer, ArrayList<String>> result = new HashMap<>();
+		for (String word : words) {
+			int length = word.length();
+			if (!result.containsKey(length)) {
+				result.put(length, new ArrayList<>());
+			}
+			result.get(length).add(word);
+		}
+		return result;
 	}
 
 	/**
@@ -93,7 +131,23 @@ public class Lab7 {
 	 * @return true if the strings are anagrams, false otherwise
 	 */
 	public static boolean areAnagrams(String str1, String str2) {
-		//Fill in the code here	
+		str1 = str1.toLowerCase().replace(" ", "");
+		str2 = str2.toLowerCase().replace(" ", "");
+		if (str1.length() != str2.length()) {
+			return false;
+		}
+		HashMap<Character, Integer> charCount = new HashMap<>();
+		for (char c : str1.toCharArray()) {
+			charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+		}
+		for (char c : str2.toCharArray()) {
+			charCount.put(c, charCount.getOrDefault(c, 0) - 1);
+		}
+		for (int count : charCount.values()) {
+			if (count != 0) {
 				return false;
+			}
+		}
+		return true;
 	}
 }

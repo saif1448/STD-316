@@ -1,4 +1,6 @@
-package lab7;
+//package lab7;
+
+package LabSolutions.Lab7;
 
 import static org.junit.jupiter.api.Assertions.*;
 
