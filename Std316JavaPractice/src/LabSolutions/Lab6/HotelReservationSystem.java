@@ -109,6 +109,14 @@ class Room {
         setPricePerNight(pricePerNight);
     }
 
+
+//	public Room(int roomNumber, String roomType, int capacity, double pricePerNight) throws InvalidRoomException {
+//		setRoomNumber(roomNumber);
+//		setRoomType(roomType);
+//		setCapacity(capacity);
+//		setPricePerNight(pricePerNight);
+//	}
+
     /**
      * Gets the room number.
      *
@@ -117,6 +125,7 @@ class Room {
     public int getRoomNumber() {
         return roomNumber;
     }
+
 
     /**
      * Sets the room number with validation.
@@ -191,12 +200,19 @@ class Room {
      * @throws InvalidRoomException if pricePerNight is negative
      */
 
-    public void setPricePerNight(double pricePerNight) throws InvalidRoomException {
-        if (pricePerNight < 0) {
-            throw new InvalidRoomException("Price per night cannot be negative.");
+    public void setPricePerNight(double pricePerNight) throws InvalidRoomException{
+        if(pricePerNight < 0) {
+            throw new InvalidRoomException("Price Per Night Must be Non Negative!");
         }
-        this.pricePerNight = round2(pricePerNight);
+        this.pricePerNight = pricePerNight;
     }
+
+//	public void setPricePerNight(double pricePerNight) throws InvalidRoomException {
+//		if (pricePerNight < 0) {
+//			throw new InvalidRoomException("Price per night cannot be negative.");
+//		}
+//		this.pricePerNight = round2(pricePerNight);
+//	}
 
     /**
      * Calculates the total cost for a given number of nights.
@@ -204,12 +220,24 @@ class Room {
      * @param numberOfNights the number of nights to stay
      * @return the total cost rounded to 2 decimal places
      */
+
+
     public double calculateCost(int numberOfNights) {
-        if (numberOfNights < 0) {
-            throw new IllegalArgumentException("Number of nights cannot be negative.");
-        }
-        return round2(pricePerNight * numberOfNights);
+        double totalCost = pricePerNight * numberOfNights;
+        totalCost =  Math.round(totalCost*100.0)/100.0;
+        return totalCost;
     }
+
+//	public double calculateCost(int numberOfNights) {
+//		if (numberOfNights < 0) {
+//			throw new IllegalArgumentException("Number of nights cannot be negative.");
+//		}
+//		return round2(pricePerNight * numberOfNights);
+//	}
+
+
+
+
 
     /**
      * Calculates the total cost including tax for a given number of nights.
@@ -219,11 +247,22 @@ class Room {
      * @return the total cost including tax, rounded to 2 decimal places
      */
 
+
     public double calculateCostWithTax(int numberOfNights, double taxRate) {
-        double base = calculateCost(numberOfNights);
-        double total = base * (1 + taxRate / 100.0);
-        return round2(total);
+        // totalcost calculate
+        double totalCost = calculateCost(numberOfNights);
+        // tax apply upon total cost
+        double totalCostWithTax = totalCost * (1 + taxRate/100);
+        // round it to 2 decimal
+        return Math.round(totalCostWithTax*100.0)/100.0;
     }
+
+
+//	public double calculateCostWithTax(int numberOfNights, double taxRate) {
+//		double base = calculateCost(numberOfNights);
+//		double total = base * (1 + taxRate / 100.0);
+//		return round2(total);
+//	}
 
     /**
      * Applies a discount to a given cost.
@@ -233,16 +272,31 @@ class Room {
      * @return the discounted cost rounded to 2 decimal places
      */
 
+
+
     public double applyDiscount(double cost, double discountPercent) {
-        if (cost < 0) {
-            throw new IllegalArgumentException("Cost cannot be negative.");
-        }
-        if (discountPercent < 0) {
-            throw new IllegalArgumentException("Discount percent cannot be negative.");
-        }
-        double discounted = cost * (1 - discountPercent / 100.0);
-        return round2(discounted);
+        double discountprice = cost * (1 - discountPercent/ 100);
+        return Math.round(discountprice*100.0)/100.0;
     }
+
+
+
+
+
+
+
+
+//
+//	public double applyDiscount(double cost, double discountPercent) {
+//		if (cost < 0) {
+//			throw new IllegalArgumentException("Cost cannot be negative.");
+//		}
+//		if (discountPercent < 0) {
+//			throw new IllegalArgumentException("Discount percent cannot be negative.");
+//		}
+//		double discounted = cost * (1 - discountPercent / 100.0);
+//		return round2(discounted);
+//	}
 
     /**
      * Checks if the room can accommodate the specified number of guests.
@@ -251,9 +305,17 @@ class Room {
      * @return true if the room can accommodate the guests, false otherwise
      */
 
+
+
+
     public boolean isAvailableForGuests(int numberOfGuests) {
-        return numberOfGuests > 0 && numberOfGuests <= capacity;
+        return numberOfGuests <= capacity;
     }
+
+
+//	public boolean isAvailableForGuests(int numberOfGuests) {
+//		return numberOfGuests > 0 && numberOfGuests <= capacity;
+//	}
 
     /**
      * Returns a string representation of the room.
@@ -304,23 +366,15 @@ public class HotelReservationSystem {
      * @throws InvalidBookingException       if any parameter is invalid
      * @throws RoomCapacityExceededException if numberOfGuests exceeds room capacity
      */
+
     public HotelReservationSystem(String bookingID, String guestName, Date checkInDate, Date checkOutDate,
                                   int numberOfGuests, Room room) throws InvalidBookingException, RoomCapacityExceededException {
-        setRoom(room); // validate room not null first (room needed for capacity check)
         setBookingID(bookingID);
         setGuestName(guestName);
-        if (checkInDate == null) {
-            throw new InvalidBookingException("Check-in date cannot be null.");
-        }
-        if (checkOutDate == null) {
-            throw new InvalidBookingException("Check-out date cannot be null.");
-        }
-        if (!checkOutDate.after(checkInDate)) {
-            throw new InvalidBookingException("Check-out must be after check-in.");
-        }
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        setNumberOfGuests(numberOfGuests); // capacity check inside
+        setCheckInDate(checkInDate);
+        setCheckOutDate(checkOutDate);
+        setNumberOfGuests(numberOfGuests);
+        setRoom(room);
     }
 
     /**
@@ -328,9 +382,12 @@ public class HotelReservationSystem {
      *
      * @return the booking ID
      */
+
     public String getBookingID() {
         return bookingID;
     }
+
+
 
     /**
      * Sets the booking ID with validation.
@@ -340,20 +397,26 @@ public class HotelReservationSystem {
      */
 
     public void setBookingID(String bookingID) throws InvalidBookingException {
-        if (bookingID == null || bookingID.trim().isEmpty()) {
-            throw new InvalidBookingException("Booking ID cannot be null or empty.");
+        if(bookingID == null || bookingID.trim().isEmpty()) {
+            throw new InvalidBookingException("Booking ID cannot be null or empty");
         }
-        this.bookingID = bookingID.trim();
+        this.bookingID = bookingID;
     }
+
+
 
     /**
      * Gets the guest name.
      *
      * @return the guest name
      */
+
+
     public String getGuestName() {
         return guestName;
     }
+
+
 
     /**
      * Sets the guest name with validation.
@@ -363,20 +426,25 @@ public class HotelReservationSystem {
      */
 
     public void setGuestName(String guestName) throws InvalidBookingException {
-        if (guestName == null || guestName.trim().isEmpty()) {
-            throw new InvalidBookingException("Guest name cannot be null or empty.");
+        if(guestName == null || guestName.trim().isEmpty()) {
+            throw new InvalidBookingException("Guest name cannot be empty");
         }
-        this.guestName = guestName.trim();
+        this.guestName = guestName;
     }
+
 
     /**
      * Gets the check-in date.
      *
      * @return the check-in date
      */
+
     public Date getCheckInDate() {
         return checkInDate;
     }
+
+
+
 
     /**
      * Sets the check-in date with validation.
@@ -386,23 +454,26 @@ public class HotelReservationSystem {
      */
 
     public void setCheckInDate(Date checkInDate) throws InvalidBookingException {
-        if (checkInDate == null) {
-            throw new InvalidBookingException("Check-in date cannot be null.");
-        }
-        if (this.checkOutDate != null && !checkInDate.before(this.checkOutDate)) {
-            throw new InvalidBookingException("Check-in must be before current check-out date.");
+        if(checkInDate == null || checkInDate.after(checkOutDate)) {
+            throw new InvalidBookingException("Check in date cannot be null or before checkout date");
         }
         this.checkInDate = checkInDate;
     }
+
+
 
     /**
      * Gets the check-out date.
      *
      * @return the check-out date
      */
+
     public Date getCheckOutDate() {
         return checkOutDate;
     }
+
+
+
 
     /**
      * Sets the check-out date with validation.
@@ -414,23 +485,26 @@ public class HotelReservationSystem {
      */
 
     public void setCheckOutDate(Date checkOutDate) throws InvalidBookingException {
-        if (checkOutDate == null) {
-            throw new InvalidBookingException("Check-out date cannot be null.");
-        }
-        if (this.checkInDate != null && !checkOutDate.after(this.checkInDate)) {
-            throw new InvalidBookingException("Check-out must be after check-in date.");
+        if(checkOutDate == null || checkOutDate.before(checkInDate)) {
+            throw new InvalidBookingException("Checkout date must not be null or before checkin date");
         }
         this.checkOutDate = checkOutDate;
     }
+
+
 
     /**
      * Gets the number of guests.
      *
      * @return the number of guests
      */
+
     public int getNumberOfGuests() {
         return numberOfGuests;
     }
+
+
+
 
     /**
      * Sets the number of guests with validation.
@@ -441,25 +515,29 @@ public class HotelReservationSystem {
      *                                       to 0
      * @throws RoomCapacityExceededException if numberOfGuests exceeds room capacity
      */
+
     public void setNumberOfGuests(int numberOfGuests) throws InvalidBookingException, RoomCapacityExceededException {
         if (numberOfGuests <= 0) {
-            throw new InvalidBookingException("Number of guests must be positive.");
+            throw new InvalidBookingException("Number of guest must be positive");
         }
-        if (room != null && !room.isAvailableForGuests(numberOfGuests)) {
-            throw new RoomCapacityExceededException("Number of guests exceeds room capacity.");
+        if(numberOfGuests > room.getCapacity()) {
+            throw new RoomCapacityExceededException("Number of guest exceeds room capacity");
         }
         this.numberOfGuests = numberOfGuests;
     }
+
+
+
 
     /**
      * Gets the associated room.
      *
      * @return the room object
      */
-
     public Room getRoom() {
         return room;
     }
+
 
     /**
      * Sets the associated room with validation.
@@ -469,21 +547,25 @@ public class HotelReservationSystem {
      */
 
     public void setRoom(Room room) throws InvalidBookingException {
-        if (room == null) {
-            throw new InvalidBookingException("Room cannot be null.");
+
+        if(room == null) {
+            throw new InvalidBookingException("Room canno be null");
         }
         this.room = room;
     }
+
 
     /**
      * Calculates the number of nights between check-in and check-out dates.
      *
      * @return the number of nights
      */
+
     public int getNumberOfNights() {
-        long diffMillis = checkOutDate.getTime() - checkInDate.getTime();
-        long days = java.util.concurrent.TimeUnit.MILLISECONDS.toDays(diffMillis);
-        return (int) days;
+        long checkinTime = checkInDate.getTime();
+        long checkoutTime = checkOutDate.getTime();
+        int day = (int) TimeUnit.MILLISECONDS.toDays(checkoutTime - checkinTime);
+        return day;
     }
 
     /**
@@ -492,9 +574,15 @@ public class HotelReservationSystem {
      *
      * @return the total cost rounded to 2 decimal places
      */
+
+
     public double getTotalCost() {
-        return round2(room.calculateCost(getNumberOfNights()));
+        return room.calculateCost(getNumberOfNights());
     }
+
+
+
+
 
     /**
      * Calculates the total cost of the booking including tax.
@@ -502,8 +590,9 @@ public class HotelReservationSystem {
      * @param taxRate the tax rate as a percentage (e.g., 13.0 for 13%)
      * @return the total cost including tax, rounded to 2 decimal places
      */
+
     public double getTotalCostWithTax(double taxRate) {
-        return round2(room.calculateCostWithTax(getNumberOfNights(), taxRate));
+        return room.calculateCostWithTax(getNumberOfNights(), taxRate);
     }
 
     /**
@@ -512,7 +601,8 @@ public class HotelReservationSystem {
      * @return the cost per guest rounded to 2 decimal places
      */
     public double getCostPerGuest() {
-        return round2(getTotalCost() / numberOfGuests);
+        double costPerGuest = getTotalCost()/ numberOfGuests;
+        return Math.round(costPerGuest*100.0)/100.0;
     }
 
     /**
@@ -523,7 +613,7 @@ public class HotelReservationSystem {
      * @return the discounted total cost rounded to 2 decimal places
      */
     public double getDiscountedTotal(double discountPercent) {
-        return round2(room.applyDiscount(getTotalCost(), discountPercent));
+        return room.applyDiscount(getTotalCost(), discountPercent);
     }
 
     /**
@@ -532,10 +622,14 @@ public class HotelReservationSystem {
      * @return true if check-in is on Friday or Saturday, false otherwise
      */
     public boolean isWeekendCheckIn() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(checkInDate);
-        int day = cal.get(Calendar.DAY_OF_WEEK);
-        return day == Calendar.FRIDAY || day == Calendar.SATURDAY;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(checkInDate);
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        if (day == Calendar.FRIDAY || day == Calendar.SATURDAY) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**
